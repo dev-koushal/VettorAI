@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-export const Timer = ({ timeLeft = 0, totalTime = 60 }) => {
+export const Timer = ({ timeLeft, totalTime}) => {
   const progress = (timeLeft / totalTime) * 100;
 
   return (
