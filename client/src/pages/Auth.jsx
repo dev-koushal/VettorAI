@@ -1,7 +1,38 @@
 import {FaGithub } from "react-icons/fa";
 import { motion } from "motion/react";
 import { FcGoogle } from "react-icons/fc";
+import { toast } from "react-toastify";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../utils/firebase";
+import axios from "axios";
+import { getCurrentUser, ServerURL } from "../App";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 export default function Auth() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleGoogleAuth = async () => {
+    try {
+    
+      const res = await signInWithPopup(auth, provider);
+       
+      let user = res.user;
+      let name = user.displayName;  
+      let email = user.email;
+      const result = await axios.post(ServerURL + "/api/auth/google", {name,email}, { withCredentials: true });
+
+      // console.log(result.data );
+      await getCurrentUser(dispatch);
+      toast.success("Google authentication successful! Welcome to Vettor AI.");
+    } catch (error) {
+      console.log(error);
+      toast.error("Google authentication failed. Please try again.");
+    }finally {
+      navigate("/");  
+    }
+  };
+
   return (
     <div className="min-h-screen bg-black flex items-center justify-center relative overflow-hidden">
 
@@ -45,6 +76,7 @@ export default function Auth() {
         <div className="flex flex-col gap-4">
 
           <motion.button
+          onClick={handleGoogleAuth}
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
             className="flex items-center justify-center gap-3 w-full bg-white text-black py-3 rounded-lg font-medium cursor-pointer"

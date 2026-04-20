@@ -4,8 +4,12 @@ import Product from "../components/Product";
 import Feature from "../components/Feature";
 import Prices from "../components/Prices";
 import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom";
 function Home() {
+
+  const navigate = useNavigate();
   return (
+
     <div id="home" className="bg-black w-full overflow-x-hidden">
 
       {/* HERO */}
@@ -40,13 +44,13 @@ function Home() {
           </motion.p>
 
           {/* buttons */}
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration:0.6 ,delay: 0.4 }} className="flex gap-4 mt-4">
+          <motion.div initial={{ opacity: 0, y: 20 }}  whileInView={{ opacity: 1, y: 0 }} transition={{ duration:0.6 ,delay: 0.4 }} viewport={{ once: true }} className="flex gap-4 mt-4">
             <motion.button
-              transition={{ ease: easeInOut }}
+              transition={{ease: easeInOut }}
               whileTap={{ scale: 0.95 }}
               viewport={{ once: true }}
-              className="flex text-sm items-center gap-2 hover:gap-4 cursor-pointer px-6 py-3 bg-lime-500 text-black rounded-lg font-medium shadow-[0_0_14px_rgba(132,204,22,0.6)]"
-            >
+              className="flex text-sm items-center gap-2 hover:translate-x-1 transition ease-in-out duration-300 cursor-pointer px-6 py-3 bg-lime-500 text-black rounded-lg font-medium shadow-[0_0_14px_rgba(132,204,22,0.6)]"
+             onClick={()=>navigate("/interview")}>
               Start Interview
               <FaArrowRight size={14} />
             </motion.button>
@@ -55,9 +59,9 @@ function Home() {
               whileHover={{ y: -3 }}
               whileTap={{ scale: 0.96 }}
               viewport={{ once: true }}
-              className="px-6 py-3 border border-white/15 text-gray-300 rounded-lg hover:bg-white/10 transition text-sm"
+              className="px-6 py-3 border border-white/15 text-gray-300 rounded-lg hover:bg-white/10 transition text-sm cursor-pointer"
             >
-              Explore Features
+              Buy More Credits
             </motion.button>
           </motion.div>
 
