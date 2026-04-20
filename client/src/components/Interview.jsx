@@ -78,7 +78,7 @@ function Interview({ interviewData, onFinish }) {
 
       utterance.voice = selectedVoice;
 
-      utterance.rate = 0.85;
+      utterance.rate = 0.95;
       utterance.pitch = 1.05;
       utterance.volume = 1;
 
@@ -152,7 +152,7 @@ function Interview({ interviewData, onFinish }) {
     },1000);
 
     return ()=>clearInterval(timer)
-  },[isIntroPhase,currentIndex,isSubmitting])
+  },[isIntroPhase,currentIndex,isSubmitting,currentQuestion])
 
 
   // Voice -------> Text
@@ -199,7 +199,7 @@ function Interview({ interviewData, onFinish }) {
     setIsSubmitting(true);
     
     try {
-      console.log(questions);
+      // console.log(questions);
       const result = await axios.post(ServerURL+"/api/interview/submit-answer",{
         interviewId,
         questionsIndex: currentIndex,
@@ -237,12 +237,12 @@ function Interview({ interviewData, onFinish }) {
     stopMic();
     setIsMicOn(false)
     try {
+      console.log(interviewId);
         const result = await axios.post(ServerURL+"/api/interview/finish",{interviewId},{withCredentials:true})  
-
         console.log(result.data);
         onFinish(result.data);
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data.message);
     }
   }
 
@@ -264,6 +264,12 @@ function Interview({ interviewData, onFinish }) {
       window.speechSynthesis.cancel();
     }
   },[])
+
+  useEffect(() => {
+  if (currentQuestion) {
+    setTimeLeft(currentQuestion.timeLimit);
+  }
+}, [currentIndex, currentQuestion]);
 
 
   return (
@@ -302,6 +308,7 @@ function Interview({ interviewData, onFinish }) {
           </div>
 
           <div className="flex justify-center mb-4">
+            
            <Timer timeLeft={timeLeft} totalTime={currentQuestion?.timeLimit || 60} />
           </div>
 

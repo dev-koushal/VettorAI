@@ -8,7 +8,9 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserData } from "./redux/userSlice";
 import InterviewPage from "./pages/InterviewPage";
-
+import InterviewHistory from "./pages/InterviewHistory";
+import Pricing from "./pages/Pricing";
+import InterviewReport from "./pages/InterviewReport"
 export const ServerURL = "http://localhost:8000";
 
 export const getCurrentUser = async (dispatch) => {
@@ -41,6 +43,18 @@ function App() {
         <Route
           path="/interview"
           element={userData ? <InterviewPage /> : <Auth />}
+        />
+        <Route
+          path="/history"
+          element={userData ? <InterviewHistory /> : <Auth />}
+        />
+        <Route
+          path="/report/:interviewId"
+          element={userData ? <InterviewReport /> : <Auth />}
+        />
+        <Route
+          path="/pricing"
+          element={userData ? <Pricing /> : <Auth />}
         />
       </Routes>
 
