@@ -323,27 +323,31 @@ Answer: ${answer}
 
     return res.status(200).json({ feedback: parsed.feedback });
   } catch (error) {
-    console.log("failed to submit answer", error);
+     console.log("failed to submit answer", error);
+  return res.status(500).json({ message: "Failed to submit answer" });
   }
 };
 
 export const finishInterview = async (req, res) => {
   try {
     const { interviewId } = req.body;
+   
     const interview = await Interview.findById(interviewId);
-
+    console.log(interview)
+    
     if (!interview) {
       return res.status(400).json({ message: "failed to find interview!!" });
     }
+    
 
-    const totalQuestions = interview.question.length;
+    const totalQuestions = interview.questions.length;
 
     let totalScore = 0;
     let totalConfidence = 0;
     let totalCommunication = 0;
     let totalCorrectness = 0;
 
-    interview.question.forEach((q) => {
+    interview.questions.forEach((q) => {
       totalScore += q.score || 0;
       totalConfidence += q.confidence || 0;
       totalCommunication += q.communication || 0;
@@ -369,8 +373,9 @@ export const finishInterview = async (req, res) => {
       confidence: Number(avgConfidence.toFixed(1)),
       communication: Number(avgCommunication.toFixed(1)),
       correctness: Number(avgCorrectness.toFixed(1)),
-      questionWiseScore: interview.question.map((q) => ({
+      questionWiseScore: interview.questions.map((q) => ({
         question: q.question,
+         answer: q.answer || "",
         score: q.score || 0,
         feedback: q.feedback || "",
         confidence: q.confidence || 0,

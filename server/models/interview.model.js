@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const questionsSchema = new mongoose.Schema({
   question: String,
   difficulty: String,
+  answer: { type: String, default: "" },
   feedback: String,
   timeLimit: Number,
   score: {type: Number,default: 0},
