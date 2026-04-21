@@ -1,13 +1,16 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaCheck } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function Price() {
+  const navigate = useNavigate();
   const plans = [
     {
       name: "Starter",
-      price: "Free",
+      price: "₹99",
       features: [
+        "100 Credit",
         "2 AI mock interviews",
         "Basic feedback",
         "Performance tracking",
@@ -17,10 +20,10 @@ function Price() {
     },
     {
       name: "Pro",
-      price: "₹99",
+      price: "₹199",
       highlight: true,
       features: [
-        "100 Credit",
+        "250 Credit",
         "Unlimited AI interviews",
         "Advanced AI feedback",
         "Performance analytics",
@@ -29,9 +32,9 @@ function Price() {
     },
     {
       name: "Elite",
-      price: "₹199/mo",
+      price: "₹399",
       features: [
-        "200 Credit",
+        "500 Credit",
         "Everything in Pro",
         "Real company questions",
         "Priority AI evaluation",
@@ -41,7 +44,7 @@ function Price() {
   ];
 
   return (
-    <section id="pricing" className="w-full mt-12 mb-12 bg-black">
+    <section id="prices" className="w-full mt-12 mb-12 bg-black">
       <div className="max-w-6xl mx-auto px-6">
 
         <motion.h2
@@ -107,6 +110,7 @@ function Price() {
               </div>
 
               <button
+              onClick={()=>navigate("/pricing")}
                 className={`mt-10 w-full py-3 rounded-lg text-sm font-medium transition ${
                   plan.highlight
                     ? "bg-lime-400 text-black hover:bg-lime-300"

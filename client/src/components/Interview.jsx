@@ -25,6 +25,7 @@ function Interview({ interviewData, onFinish }) {
   const[isAIPlaying,setIsAIPlaying] = useState(false);
   const[isCameraOn,setIsCameraOn] = useState(true);
 
+
   const currentQuestion = questions[currentIndex];
  
   useEffect(()=>{
@@ -233,18 +234,26 @@ function Interview({ interviewData, onFinish }) {
     }, 600);
   }
 
-  const finishInterview = async (params) => {
-    stopMic();
-    setIsMicOn(false)
-    try {
-      console.log(interviewId);
-        const result = await axios.post(ServerURL+"/api/interview/finish",{interviewId},{withCredentials:true})  
-        console.log(result.data);
-        onFinish(result.data);
-    } catch (error) {
-      console.log(error.response.data.message);
-    }
+ const finishInterview = async () => {
+  stopMic();
+  setIsMicOn(false);
+
+  try {
+    const result = await axios.post(
+      ServerURL + "/api/interview/finish",
+      { interviewId },
+      { withCredentials: true }
+    );
+
+    console.log(result.data)
+
+    onFinish(result.data);
+    navigate("/history");
+
+  } catch (error) {
+    console.log(error.response.data.message);
   }
+};
 
   useEffect(()=>{
     if(isIntroPhase)return;

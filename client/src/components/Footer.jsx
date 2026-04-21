@@ -4,7 +4,7 @@ import { FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa";
 
 function Footer() {
   return (
-    <div className="bg-black w-full overflow-x-hidden overflow-y-hidden">
+    <div id="footer" className="bg-black w-full overflow-x-hidden overflow-y-hidden">
         <motion.footer
 
       initial={{ opacity: 0, y: 60 }}

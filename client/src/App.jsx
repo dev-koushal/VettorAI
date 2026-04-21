@@ -11,6 +11,8 @@ import InterviewPage from "./pages/InterviewPage";
 import InterviewHistory from "./pages/InterviewHistory";
 import Pricing from "./pages/Pricing";
 import InterviewReport from "./pages/InterviewReport"
+import TargetCompanies from "./pages/TargetCompanies";
+import TargetedInterview from "./pages/TargetedInterview";
 export const ServerURL = "http://localhost:8000";
 
 export const getCurrentUser = async (dispatch) => {
@@ -35,7 +37,7 @@ function App() {
 
   return (
     <div className="min-h-screen w-full">
-      <Navbar />
+      <Navbar  />
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -55,6 +57,14 @@ function App() {
         <Route
           path="/pricing"
           element={userData ? <Pricing /> : <Auth />}
+        />
+        <Route
+          path="/target-companies"
+          element={ <TargetCompanies />}
+        />
+        <Route
+          path="/target-companies/interview"
+          element={ <TargetedInterview />}
         />
       </Routes>
 

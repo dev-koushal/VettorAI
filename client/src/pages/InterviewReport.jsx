@@ -234,10 +234,11 @@ function InterviewReport() {
               <span className="text-lime-300 ml-1">{q.correctness}</span>
             </p>
           </div>
+          <div className="bg-gray-600 w-full font-semibold text-sm cursor-pointer tracking-wide p-2 hover:bg-gray-400 rounded-lg"><p className="text-gray-900 inline">Your answer:</p> {q.answer}</div>
 
           {q.feedback && (
-            <p className="text-gray-400 text-sm leading-relaxed">
-              {q.feedback}
+            <p className="text-lime-800 font-bold text-sm leading-relaxed mt-2">
+              Feedback: {q.feedback}
             </p>
           )}
         </motion.div>

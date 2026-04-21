@@ -80,6 +80,9 @@ function SetUpIW({ onStart }) {
     setLoading(true);
 
     try {
+      if(userData.credits<50){
+        toast.error("Buy Credits to use this feature!!")
+      }
       const result = await axios.post(
         ServerURL + "/api/interview/generate-questions",
         { role, experience, mode, resumeText, projects, skills },
