@@ -45,15 +45,15 @@ function Footer() {
 
           {/* socials */}
           <div className="flex gap-5 text-gray-400 text-lg">
-            <a href="#" className="hover:text-lime-400 transition">
+            <a href="https://github.com/dev-koushal" className="hover:text-lime-400 transition">
               <FaGithub />
             </a>
 
-            <a href="#" className="hover:text-lime-400 transition">
+            <a href="https://x.com/Koushal1199" className="hover:text-lime-400 transition">
               <FaTwitter />
             </a>
 
-            <a href="#" className="hover:text-lime-400 transition">
+            <a href="www.linkedin.com/in/koushal-yadav" className="hover:text-lime-400 transition">
               <FaLinkedin />
             </a>
           </div>
