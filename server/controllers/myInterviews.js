@@ -29,12 +29,16 @@ export const getInterviewReport = async (req,res) => {
     let totalConfidence = 0;
     let totalCommunication = 0;
     let totalCorrectness = 0;
+    let totalStructure = 0;
+    let totalDepth = 0;
 
     interview.questions.forEach((q) => {
       
       totalConfidence += q.confidence || 0;
       totalCommunication += q.communication || 0;
       totalCorrectness += q.correctness || 0;
+      totalStructure += q.structure || 0;
+      totalDepth += q.depth || 0;
     });
 
     
@@ -45,6 +49,12 @@ export const getInterviewReport = async (req,res) => {
     const avgCorrectness = totalQuestions
       ? totalCorrectness / totalQuestions
       : 0;
+    const avgStructure = totalQuestions
+      ? totalStructure / totalQuestions
+      : 0;
+    const avgDepth = totalQuestions
+      ? totalDepth / totalQuestions
+      : 0;
 
       
    
@@ -52,6 +62,8 @@ export const getInterviewReport = async (req,res) => {
       confidence: Number(avgConfidence.toFixed(1)),
       communication: Number(avgCommunication.toFixed(1)),
       correctness: Number(avgCorrectness.toFixed(1)),
+      structure: Number(avgStructure.toFixed(1)),
+      depth: Number(avgDepth.toFixed(1)),
       questionWiseScore: interview.questions
     }); 
 

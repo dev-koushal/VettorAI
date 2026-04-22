@@ -12,6 +12,8 @@ function ReportIW({ report }) {
     confidence,
     communication,
     correctness,
+    structure,
+    depth,
     questionWiseScore,
   } = report;
 
@@ -26,7 +28,7 @@ function ReportIW({ report }) {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-4xl bg-white/10 backdrop-blur-xl border border-lime-500/20 rounded-2xl p-8 shadow-xl z-10"
+        className="w-full max-w-4xl bg-white/10 backdrop-blur-xl border border-lime-500/20 rounded-2xl my-30 p-8 shadow-xl z-10"
       >
 
         {/* Title */}
@@ -58,6 +60,18 @@ function ReportIW({ report }) {
           <div className="bg-black/60 border border-lime-500/20 rounded-lg p-4 text-center">
             <p className="text-xs text-zinc-400 mb-1">Correctness</p>
             <p className="text-2xl text-lime-400 font-semibold">{correctness}</p>
+          </div>
+          <div className="bg-black/60 border border-lime-500/20 rounded-lg p-4 text-center">
+            <p className="text-xs text-zinc-400 mb-1">Structure</p>
+            <p className="text-2xl text-lime-400 font-semibold">{structure}</p>
+          </div>
+          <div className="bg-black/60 border border-lime-500/20 rounded-lg p-4 text-center">
+            <p className="text-xs text-zinc-400 mb-1">Depth</p>
+            <p className="text-2xl text-lime-400 font-semibold">{depth}</p>
+          </div>
+          <div className="bg-black/60 border border-lime-500/20 rounded-lg p-4 text-center">
+            <p className="text-xs text-zinc-400 mb-1">Average</p>
+            <p className="text-2xl text-lime-400 font-semibold">{(depth+confidence+communication+correctness+structure)/5}</p>
           </div>
 
         </div>

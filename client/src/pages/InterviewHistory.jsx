@@ -3,7 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ServerURL } from "../App";
 import { motion } from "framer-motion";
-import { FaHistory, FaCalendarAlt, FaArrowRight } from "react-icons/fa";
+import {
+  FaHistory,
+  FaCalendarAlt,
+  FaArrowRight,
+  FaClock,
+} from "react-icons/fa";
 
 function InterviewHistory() {
   const [interviews, setInterviews] = useState([]);
@@ -17,7 +22,7 @@ function InterviewHistory() {
           ServerURL + "/api/interview/get-interview",
           { withCredentials: true },
         );
-
+        // console.log(result.data)
         setInterviews(result.data);
       } catch (error) {
         console.log(error?.response?.data?.message);
@@ -99,10 +104,26 @@ function InterviewHistory() {
                     {interview.role || "Unknown"}
                   </p>
 
-                  <div className="flex items-center gap-2 text-gray-400 text-xs sm:text-sm">
-                    <FaCalendarAlt />
+                  <div className="flex gap-2 ">
+                    <div className="flex items-center gap-2 text-gray-400 text-xs sm:text-sm">
+                      <FaCalendarAlt />
 
-                    {new Date(interview.createdAt).toLocaleDateString()}
+                      {new Date(interview.createdAt).toLocaleDateString()}
+                    </div>
+                    <div className="flex items-center gap-2 text-gray-400 text-xs sm:text-sm">
+                      <FaClock />
+
+                      {new Date(interview.createdAt).toLocaleTimeString(
+                        "en-IN",
+                        {
+                          timeZone: "Asia/Kolkata",
+                          hour12: false,
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          second: "2-digit",
+                        },
+                      )}
+                    </div>
                   </div>
                 </div>
 
@@ -110,7 +131,7 @@ function InterviewHistory() {
 
                 <div className="text-left sm:text-right md:text-center">
                   <p className="text-lime-300 font-semibold text-sm">
-                    ({interview.finalScore}/10) correct
+                    ({interview.finalScore}/10) Score
                   </p>
                 </div>
 

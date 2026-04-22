@@ -10,6 +10,8 @@ const questionsSchema = new mongoose.Schema({
   confidence: { type: Number, default: 0 },
   communication: { type: Number, default: 0 },
   correctness: { type: Number, default: 0 },
+  structure : {type: Number, default: 0 },
+  depth : {type: Number, default: 0 },
 });
 
 const interviewSchema = new mongoose.Schema(

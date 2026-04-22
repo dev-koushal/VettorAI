@@ -23,6 +23,7 @@ export default function Navbar() {
 
   const accentBg = isTargetPage ? "bg-red-500" : "bg-lime-500";
   const accentText = isTargetPage ? "text-red-400" : "text-lime-400";
+  const Text = isTargetPage ? "italic semibold " : "";
   const accentHover = isTargetPage
     ? "hover:text-red-400"
     : "hover:text-lime-400";
@@ -72,12 +73,12 @@ export default function Navbar() {
         >
           <motion.div
             whileHover={{ rotate: 8, scale: 1.1 }}
-            className={`w-9 h-9 rounded-lg ${accentBg} flex items-center justify-center text-black font-bold text-lg`}
+            className={`${Text} w-9 h-9 rounded-lg ${accentBg} flex items-center justify-center text-black font-bold text-lg`}
           >
             V
           </motion.div>
 
-          <span className="text-white font-semibold text-lg" onClick={() => navigate("/")}>Vettor AI</span>
+          <span className={`text-white font-semibold text-lg ${Text}`} onClick={() => navigate("/")}>Vettor AI</span>
         </div>
 
         {/* links */}
@@ -85,7 +86,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-8 text-gray-300 text-sm">
           <motion.div
             whileHover={{ y: -2 }}
-            className={`cursor-pointer ${accentHover}`}
+            className={`cursor-pointer ${accentHover} ${Text}`}
             onClick={()=>navigate("/")}
           >
             <a href="#products">Product </a>
@@ -93,17 +94,17 @@ export default function Navbar() {
 
           <motion.div
             whileHover={{ y: -2 }}
-            className={`cursor-pointer ${accentHover}`}
+            className={`cursor-pointer ${accentHover} ${Text}`}
             onClick={()=>navigate("/")}
           >
             <a href="#features"> Features </a>
           </motion.div>
 
-          <motion.div whileHover={{ y: -2 }} onClick={()=>navigate("/")}>
+          <motion.div className={`cursor-pointer ${accentHover} ${Text}`} whileHover={{ y: -2 }} onClick={()=>navigate("/")}>
             <a href="#prices">Pricing </a>
           </motion.div>
 
-          <motion.div whileHover={{ y: -2 }} onClick={()=>navigate("/")}>
+          <motion.div className={`cursor-pointer ${accentHover} ${Text}`} whileHover={{ y: -2 }} onClick={()=>navigate("/")}>
             <a href="#footer">Contact </a>
           </motion.div>
 
@@ -111,7 +112,7 @@ export default function Navbar() {
 
           <motion.div
             whileHover={{ y: -2 }}
-            className={`cursor-pointer ${accentHover}`}
+            className={`cursor-pointer ${accentHover} ${Text}`} 
             onClick={() => navigate(isTargetPage ? "/" : "/target-companies")}
           >
             {isTargetPage ? "Home" : "Target Companies"}

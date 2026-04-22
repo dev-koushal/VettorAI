@@ -129,7 +129,7 @@ export const generateQuestion = async (req, res) => {
         content: `
 You are a real human interviewer conducting a professional interview.
 
-Speak in simple, natural English as if you are directly talking to the candidate.
+Speak natural English as if you are directly talking to the candidate.
 
 Generate exactly 5 interview questions.
 
@@ -141,6 +141,7 @@ Strict Rules:
 - Do NOT add extra text before or after.
 - One question per line only.
 - Keep language simple and conversational.
+- Questions should be from previous asked interviews of the big MNC's.
 - Questions must feel practical and realistic.
 
 Difficulty progression:
@@ -269,7 +270,8 @@ Score the answer in these areas (0 to 10):
 1. Confidence – Does the answer sound clear, confident, and well-presented?
 2. Communication – Is the language simple, clear, and easy to understand?
 3. Correctness – Is the answer accurate, relevant, and complete?
-
+4. Structure – Logical flow (intro → points → conclusion).
+5. Depth – Shows real understanding, not just surface-level.
 Rules:
 - Be realistic and unbiased.
 - Do not give random high scores.
@@ -278,11 +280,11 @@ Rules:
 - Consider clarity, structure, and relevance.
 
 Calculate:
-finalScore = average of confidence, communication, and correctness (rounded to nearest whole number).
+finalScore = average of confidence, communication, structure, depth and correctness (rounded to nearest whole number).
 
 Feedback Rules:
 - Write natural human feedback.
-- 10 to 15 words only.
+- 15 to 20 words only.
 - Sound like real interview feedback.
 - Can suggest improvement if needed.
 - Do NOT repeat the question.
@@ -296,6 +298,8 @@ Return ONLY valid JSON in this format:
   "communication": number,
   "correctness": number,
   "finalScore": number,
+  "structure": number,
+  "depth" : number,
   "feedback": "short human feedback"
 }
 `,
@@ -318,6 +322,9 @@ Answer: ${answer}
     question.correctness = parsed.correctness;
     question.score = parsed.finalScore;
     question.feedback = parsed.feedback;
+    question.structure = parsed.structure;
+    question.depth = parsed.depth;
+
 
     await interview.save();
 
@@ -346,12 +353,16 @@ export const finishInterview = async (req, res) => {
     let totalConfidence = 0;
     let totalCommunication = 0;
     let totalCorrectness = 0;
+    let totalStructure = 0;
+    let totalDepth = 0;
 
     interview.questions.forEach((q) => {
       totalScore += q.score || 0;
       totalConfidence += q.confidence || 0;
       totalCommunication += q.communication || 0;
       totalCorrectness += q.correctness || 0;
+      totalStructure += q.structure || 0;
+      totalDepth += q.depth || 0;
     });
 
     const finalScore = totalQuestions ? totalScore / totalQuestions : 0;
@@ -362,6 +373,13 @@ export const finishInterview = async (req, res) => {
     const avgCorrectness = totalQuestions
       ? totalCorrectness / totalQuestions
       : 0;
+    const avgStructure = totalQuestions
+      ? totalStructure / totalQuestions
+      : 0;
+    const avgDepth = totalQuestions
+      ? totalDepth / totalQuestions
+      : 0;
+    
 
     interview.finalScore = finalScore;
     interview.status = "completed";
@@ -373,6 +391,8 @@ export const finishInterview = async (req, res) => {
       confidence: Number(avgConfidence.toFixed(1)),
       communication: Number(avgCommunication.toFixed(1)),
       correctness: Number(avgCorrectness.toFixed(1)),
+      structure: Number(avgStructure.toFixed(1)),
+      depth: Number(avgDepth.toFixed(1)),
       questionWiseScore: interview.questions.map((q) => ({
         question: q.question,
          answer: q.answer || "",
@@ -381,6 +401,8 @@ export const finishInterview = async (req, res) => {
         confidence: q.confidence || 0,
         communication: q.communication || 0,
         correctness: q.correctness || 0,
+        structure: q.structure || 0,
+        depth: q.depth || 0,
       })),
     });
   } catch (error) {

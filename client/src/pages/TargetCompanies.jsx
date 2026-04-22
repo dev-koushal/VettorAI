@@ -143,7 +143,8 @@ function TargetCompanies() {
               Start Practicing
             </motion.button>
 
-            <motion.button
+            <a href="#companies">
+              <motion.button
                whileHover={{ scale: 1.02, }}
               whileTap={{ scale: 0.95 }}
               transition={{duration:0.1, ease:easeInOut}}
@@ -151,6 +152,7 @@ function TargetCompanies() {
             >
               Explore Companies
             </motion.button>
+            </a>
           </div>
 
           {/* companies preview */}
@@ -206,7 +208,7 @@ function TargetCompanies() {
             train for their expectations.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-4">
+          <div id="companies" className="flex flex-wrap justify-center gap-4">
             {companies.map((c, i) => (
               <motion.div
                 key={i}

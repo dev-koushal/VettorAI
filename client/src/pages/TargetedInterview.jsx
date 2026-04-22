@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { FaRegCaretSquareDown, FaRegCaretSquareUp } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function TargetedInterview() {
   const [form, setForm] = useState({
@@ -8,6 +10,7 @@ function TargetedInterview() {
     type: "",
   });
 
+  const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
 
   const handleChange = (e) => {
@@ -107,8 +110,8 @@ function TargetedInterview() {
                 Feature Coming Soon
               </h2>
 
-              <p className="text-zinc-300 text-sm mb-6">
-                Targeted company interview preparation will be available soon.
+              <p className="text-zinc-100 text-sm mb-6">
+                Targeted company interview preparation will be available soon. <span onClick={()=>navigate("/interview")} className=" hover:scale-105 font-semibold block text-blue-900 cursor-pointer  underline italic">Try Our Product <FaRegCaretSquareUp className="inline "/> </span>
               </p>
 
               <button

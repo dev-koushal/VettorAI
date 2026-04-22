@@ -245,7 +245,7 @@ function Interview({ interviewData, onFinish }) {
       { withCredentials: true }
     );
 
-    console.log(result.data)
+    // console.log(result.data)
 
     onFinish(result.data);
     navigate("/history");
@@ -303,9 +303,9 @@ function Interview({ interviewData, onFinish }) {
   {/* Camera Toggle */}
   <button
     onClick={() => setIsCameraOn(prev => !prev)}
-    className={`absolute bottom-2 right-2 rounded-full ${!isCameraOn?"bg-lime-500":"bg-red-400"} duration-300 text-black text-xs px-3 py-1  font-semibold transition`}
+    className={`absolute bottom-2 right-2 rounded-full ${isCameraOn?"bg-lime-500":"bg-red-400"} duration-300 text-black text-xs px-3 py-1  font-semibold transition`}
   >
-    {isCameraOn ? <FaVideoSlash size={21}/> : <FaVideo size={20}/>} 
+    {!isCameraOn ? <FaVideoSlash size={21}/> : <FaVideo size={20}/>} 
   </button>
 
 </div>

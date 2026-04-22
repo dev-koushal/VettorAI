@@ -5,6 +5,7 @@ import Feature from "../components/Feature";
 import Prices from "../components/Prices";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
+import { FiBarChart } from "react-icons/fi";
 function Home() {
 
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ function Home() {
               transition={{ease: easeInOut }}
               whileTap={{ scale: 0.95 }}
               viewport={{ once: true }}
-              className="flex text-sm items-center gap-2 hover:translate-x-1 transition ease-in-out duration-300 cursor-pointer px-6 py-3 bg-lime-500 text-black rounded-lg font-medium shadow-[0_0_14px_rgba(132,204,22,0.6)]"
+              className="flex text-sm items-center gap-2 hover:translate-x-1 transition ease-in-out duration-300 cursor-pointer px-6 py-3 bg-lime-500 text-black rounded-lg md:font-medium shadow-[0_0_14px_rgba(132,204,22,0.6)]"
              onClick={()=>navigate("/interview")}>
               Start Interview
               <FaArrowRight size={14} />
@@ -60,9 +61,9 @@ function Home() {
               
               whileTap={{ scale: 0.96 }}
               viewport={{ once: true }}
-              className="px-12 py-3 border border-white/15 text-gray-300 rounded-lg hover:bg-white/10  hover:border hover:border-lime-500 transition duration-300 ease-in-out  font-semibold text-sm cursor-pointer"
+              className="px-12 py-3 border border-white/15 text-gray-300 rounded-lg hover:bg-white/10  hover:border hover:border-lime-500 transition duration-300 ease-in-out  font-semibold text-sm cursor-pointer flex justify-center items-center gap-2"
             >
-              History
+              Growth <FiBarChart />
             </motion.button>
           </motion.div>
 
