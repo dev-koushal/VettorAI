@@ -4,7 +4,7 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  authDomain:"vettor-ai-4862c.firebaseapp.com",
   projectId: "vettor-ai-4862c",
   storageBucket: "vettor-ai-4862c.firebasestorage.app",
   messagingSenderId: "474724726598",
