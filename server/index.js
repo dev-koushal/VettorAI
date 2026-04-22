@@ -15,7 +15,7 @@ const PORT = process.env.PORT ;
 const app = express();
 
 app.use(cors({
-  origin: "https://vettorai-1.onrender.com" ,
+  origin:  true,
   credentials: true
 }));
 
