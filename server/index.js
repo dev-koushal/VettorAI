@@ -13,7 +13,7 @@ dotenv.config();
 const PORT = process.env.PORT ;
 
 const app = express();
-
+app.set("trust proxy", 1);
 app.use(cors({ origin: "https://vettorai-1.onrender.com" , credentials: true }));
 
 app.use(express.json());
