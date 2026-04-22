@@ -65,6 +65,9 @@ Render
 ### Landing Page
 <img width="1891" height="923" alt="Screenshot 2026-04-22 123938" src="https://github.com/user-attachments/assets/dd13a84d-5862-4e9a-b65e-64a58e106d10" />
 
+### Landing Page of Targeted Company
+<img width="1862" height="968" alt="image" src="https://github.com/user-attachments/assets/f713e156-986b-4b06-b87c-695beceeccc0" />
+
 
 ### Authentication
 <img width="867" height="673" alt="image" src="https://github.com/user-attachments/assets/130fe7e3-9b4b-4508-acaa-fbfabc2174c7" />
