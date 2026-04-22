@@ -63,25 +63,24 @@ Render
 ## Screenshots
 
 ### Landing Page
-![Landing Page]
 <img width="1891" height="923" alt="Screenshot 2026-04-22 123938" src="https://github.com/user-attachments/assets/dd13a84d-5862-4e9a-b65e-64a58e106d10" />
 
 
 ### Authentication
-![Authentication]<img width="867" height="673" alt="image" src="https://github.com/user-attachments/assets/130fe7e3-9b4b-4508-acaa-fbfabc2174c7" />
+<img width="867" height="673" alt="image" src="https://github.com/user-attachments/assets/130fe7e3-9b4b-4508-acaa-fbfabc2174c7" />
 
 
 ### Interview Interface
-![Interview]
+
 <img width="1913" height="921" alt="Screenshot 2026-04-22 123948" src="https://github.com/user-attachments/assets/c2747cc7-a543-4277-b081-30851dc3f81b" />
 
 
 ### Interview Report
-![Report](<img width="1418" height="899" alt="Screenshot 2026-04-22 124035" src="https://github.com/user-attachments/assets/a0627e36-d1e5-46e6-b144-89b22c9bbafd" />
+(<img width="1418" height="899" alt="Screenshot 2026-04-22 124035" src="https://github.com/user-attachments/assets/a0627e36-d1e5-46e6-b144-89b22c9bbafd" />
 
 
 ### Pricing / Credits
-![Pricing]<img width="1517" height="804" alt="Screenshot 2026-04-22 124007" src="https://github.com/user-attachments/assets/adb38a72-c269-468c-8c57-4e1ffdd884e0" />
+<img width="1517" height="804" alt="Screenshot 2026-04-22 124007" src="https://github.com/user-attachments/assets/adb38a72-c269-468c-8c57-4e1ffdd884e0" />
 
 
 ---
@@ -89,7 +88,7 @@ Render
 ## Installation
 
 Clone repository
-git clone https://github.com/yourusername/vettor-ai.git
+git clone [https://github.com/yourusername/vettor-ai.git](https://github.com/dev-koushal/VettorAI)
 
 cd vettor-ai
 
