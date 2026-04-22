@@ -13,7 +13,7 @@ import Pricing from "./pages/Pricing";
 import InterviewReport from "./pages/InterviewReport"
 import TargetCompanies from "./pages/TargetCompanies";
 import TargetedInterview from "./pages/TargetedInterview";
-export const ServerURL = "http://localhost:8000";
+export const ServerURL = "https://vettorai-t9ex.onrender.com";
 
 export const getCurrentUser = async (dispatch) => {
   try {
