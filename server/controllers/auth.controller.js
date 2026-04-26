@@ -5,7 +5,6 @@ export const googleAuth = async (req, res) => {
   try {
     const { email, name } = req.body;
     
-    console.log("This is hitting")
     // Check if user already exists
     let user = await User.findOne({ email });
     if (!user) {
@@ -18,11 +17,12 @@ export const googleAuth = async (req, res) => {
     const token = genToken(user._id);
 
     res.cookie("token", token, {
-      httpOnly: true,
-      secure:true,
-      sameSite: "none",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    });
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  path: "/",
+  maxAge: 7 * 24 * 60 * 60 * 1000
+});
     
     res.status(200).json(user);
   } catch (error) {

@@ -25,12 +25,12 @@ export default function Auth() {
       // console.log(result.data );
       await getCurrentUser(dispatch);
       toast.success("Google authentication successful! Welcome to Vettor AI.");
+      navigate("/");  
     } catch (error) {
       console.log(error);
       toast.error("Google authentication failed. Please try again.");
-    }finally {
-      navigate("/");  
     }
+    
   };
 
   return (
