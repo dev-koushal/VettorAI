@@ -52,6 +52,11 @@ function Product() {
 
         {[
           {
+            title: "Mock Interview Simulator",
+            desc: "Practice real interview scenarios with timed sessions and company-style questions.",
+            icon: <FaBrain />
+          },
+          {
             title: "Performance Dashboard",
             desc: "Track interview scores, improvement areas, and progress across multiple mock interviews.",
             icon: <FaChartLine />
@@ -62,13 +67,8 @@ function Product() {
             icon: <FaBrain />
           },
           {
-            title: "AI Feedback Engine",
-            desc: "Detailed feedback on communication, problem solving, and coding approach after every session.",
-            icon: <FaBrain />
-          },
-          {
-            title: "AI Feedback Engine",
-            desc: "Detailed feedback on communication, problem solving, and coding approach after every session.",
+            title: "Resume Match",
+            desc: "Match your resume with company requirements and identify gaps instantly with AI MAX Feature",
             icon: <FaBrain />
           }
         ].map((product, i) => (
