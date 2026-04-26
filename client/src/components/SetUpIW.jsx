@@ -17,11 +17,11 @@ function SetUpIW({ onStart }) {
   const { userData } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  const [role, setRole] = useState("Full stack developer");
+  const [role, setRole] = useState("");
   const [experience, setExperience] = useState(
-    "Backend Engineer with 2 year experience",
+    "",
   );
-  const [mode, setMode] = useState("HR");
+  const [mode, setMode] = useState("Technical");
   const [resumeFile, setResumeFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [projects, setProjects] = useState([]);
