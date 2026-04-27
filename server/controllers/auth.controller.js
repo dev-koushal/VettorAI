@@ -4,7 +4,7 @@ import genToken from "../config/token.js";
 export const googleAuth = async (req, res) => {
   try {
     const { email, name } = req.body;
-    
+
     // Check if user already exists
     let user = await User.findOne({ email });
     if (!user) {
@@ -18,11 +18,11 @@ export const googleAuth = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure:true,
+      secure: true,
       sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
-    
+
     res.status(200).json(user);
   } catch (error) {
     console.log(error);
@@ -34,7 +34,11 @@ export const googleAuth = async (req, res) => {
 
 export const logout = (req, res) => {
   try {
-    res.clearCookie("token");
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    });
     res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
     res.status(500).json({ message: "Logout failed. Please try again." });
