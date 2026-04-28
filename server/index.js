@@ -7,6 +7,7 @@ import authRouter from "./routes/auth.route.js";
 import userRouter from "./routes/user.route.js";
 import interviewRouter from "./routes/interview.route.js";
 import paymentRouter from "./routes/razorpay.route.js";
+import fitScorerouter from "./routes/fitScore.route.js";
 
 dotenv.config();
 
@@ -27,6 +28,8 @@ app.use("/api/user", userRouter);
 app.use("/api/interview", interviewRouter);
 app.use("/api/payment", paymentRouter);
 
+
+app.use("/api/feature/fit-score",fitScorerouter);
 
 
 
