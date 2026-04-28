@@ -14,7 +14,7 @@ import InterviewReport from "./pages/InterviewReport"
 import TargetCompanies from "./pages/TargetCompanies";
 import TargetedInterview from "./pages/TargetedInterview";
 import FitScore from "./components/FitScore";
-export const ServerURL = "https://vettorai-t9ex.onrender.com ";
+export const ServerURL = "https://vettorai-t9ex.onrender.com";
 
 export const getCurrentUser = async (dispatch) => {
   try {
