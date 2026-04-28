@@ -29,7 +29,7 @@ app.use("/api/interview", interviewRouter);
 app.use("/api/payment", paymentRouter);
 
 
-app.use("/api/feature/fit-score",fitScorerouter);
+app.use("/api/feature",fitScorerouter);
 
 
 
