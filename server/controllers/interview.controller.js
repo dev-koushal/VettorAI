@@ -411,3 +411,69 @@ export const finishInterview = async (req, res) => {
       .json({ message: `Error in finishing Error ${error}` });
   }
 };
+
+export const getFitScore = async (req, res) => {
+  try {
+    const { resumeText, jobDescription } = req.body;
+
+    if (!resumeText || !jobDescription) {
+      return res.status(400).json({
+        message: "resumeText and jobDescription are required",
+      });
+    }
+
+    const messages = [
+      {
+        role: "system",
+        content: `You are an expert AI recruiter.
+
+Compare the candidate resume with the job description.
+
+Return STRICT JSON only:
+
+{
+  "score": number (0-100),
+  "matchedSkills": ["skill1","skill2"],
+  "missingSkills": ["skill1","skill2"],
+  "summary": "short explanation in 1-2 lines",
+  "improvements": ["suggestion1","suggestion2"]
+}`
+      },
+      {
+        role: "user",
+        content: `
+RESUME:
+${resumeText}
+
+JOB DESCRIPTION:
+${jobDescription}
+`
+      }
+    ];
+
+    const aiResponse = await askAi(messages);
+
+    let parsed;
+
+    try {
+      parsed = JSON.parse(aiResponse);
+    } catch {
+      const match = aiResponse.match(/\{[\s\S]*\}/);
+      parsed = match ? JSON.parse(match[0]) : {};
+    }
+
+    return res.json({
+      score: parsed.score || 0,
+      matchedSkills: parsed.matchedSkills || [],
+      missingSkills: parsed.missingSkills || [],
+      summary: parsed.summary || "",
+      improvements: parsed.improvements || []
+    });
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Error generating fit score",
+    });
+  }
+};

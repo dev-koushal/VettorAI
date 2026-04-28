@@ -16,6 +16,9 @@ interviewRouter.post("/finish",isAuth,finishInterview)
 interviewRouter.get("/get-interview",isAuth,myInterviews)
 interviewRouter.get("/report/:id",isAuth,getInterviewReport);
 
+
+
+
 export default interviewRouter;
 
 
