@@ -6,8 +6,8 @@ function Feature() {
   const features = [
     {
       icon: <FaRobot />,
-      title: "AI Interviews",
-      desc: "Simulate real technical interviews powered by adaptive AI questions."
+      title: "Fit Score",
+      desc: "Match your resume with job descriptions and get an AI score."
     },
     {
       icon: <FaChartLine />,
@@ -90,6 +90,7 @@ function Feature() {
         </div>
 
       </div>
+      
     </section>
   );
 }

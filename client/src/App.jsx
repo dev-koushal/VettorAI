@@ -13,7 +13,8 @@ import Pricing from "./pages/Pricing";
 import InterviewReport from "./pages/InterviewReport"
 import TargetCompanies from "./pages/TargetCompanies";
 import TargetedInterview from "./pages/TargetedInterview";
-export const ServerURL = "https://vettorai-t9ex.onrender.com";
+import FitScore from "./components/FitScore";
+export const ServerURL = "https://vettorai-t9ex.onrender.com ";
 
 export const getCurrentUser = async (dispatch) => {
   try {
@@ -65,6 +66,10 @@ function App() {
         <Route
           path="/target-companies/interview"
           element={ <TargetedInterview />}
+        />
+        <Route
+          path="/fit-score"
+          element={ <FitScore />}
         />
       </Routes>
 
