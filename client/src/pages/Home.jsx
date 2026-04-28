@@ -70,7 +70,9 @@ function Home() {
           </motion.div>
 
           {/* feature cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 w-full">
+          
+          <div className="grid grid-cols-1 relative md:grid-cols-3 gap-6 mt-16 w-full">
+            <div className="text-white/40 absolute -top-12 left-5 text-2xl font-bold tracking-wider">Try Features :</div>
             {[
               {
                 title: "Fit Score",
@@ -80,12 +82,12 @@ function Home() {
               {
                 title: "Role Match",
                 desc: "Discover best-fit roles based on your skills and experience.",
-                path: "/role-match",
+                path: "/skill-Roadmap",
               },
               {
-                title: "Smart Feedback",
-                desc: "Get AI-powered suggestions to improve your resume instantly.",
-                path: "/feedback",
+                title: "Leader Board",
+                desc: "Track and compare your interview performance with top candidates.",
+                path: "/leaderboard",
               },
             ].map((card, i) => (
               <motion.div

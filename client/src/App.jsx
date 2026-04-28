@@ -14,6 +14,8 @@ import InterviewReport from "./pages/InterviewReport"
 import TargetCompanies from "./pages/TargetCompanies";
 import TargetedInterview from "./pages/TargetedInterview";
 import FitScore from "./components/FitScore";
+import SkillRoadmap from "./components/SkillRoadmap";
+import Leaderboard from "./components/Leaderboard";
 export const ServerURL = "https://vettorai-t9ex.onrender.com";
 
 export const getCurrentUser = async (dispatch) => {
@@ -70,6 +72,14 @@ function App() {
         <Route
           path="/fit-score"
           element={ <FitScore />}
+        />
+        <Route
+          path="/skill-Roadmap"
+          element={ <SkillRoadmap />}
+        />
+        <Route
+          path="/leaderboard"
+          element={ <Leaderboard />}
         />
       </Routes>
 
