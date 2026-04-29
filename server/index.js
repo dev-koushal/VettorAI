@@ -7,7 +7,7 @@ import authRouter from "./routes/auth.route.js";
 import userRouter from "./routes/user.route.js";
 import interviewRouter from "./routes/interview.route.js";
 import paymentRouter from "./routes/razorpay.route.js";
-import featurerouter from "./routes/fitScore.route.js";
+import featurerouter from "./routes/feature.route.js";
 
 dotenv.config();
 
