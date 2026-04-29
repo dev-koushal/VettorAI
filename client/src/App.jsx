@@ -71,7 +71,7 @@ function App() {
         />
         <Route
           path="/fit-score"
-          element={ <FitScore />}
+         element={userData ? <FitScore /> : <Auth/>}
         />
         <Route
           path="/skill-Roadmap"
