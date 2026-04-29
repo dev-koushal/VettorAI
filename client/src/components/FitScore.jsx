@@ -124,10 +124,10 @@ function FitScore() {
 
           {/* Analyze Button */}
           <motion.button
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.01 }}
             onClick={handleAnalyze}
             disabled={analyzing}
-            className={`w-full ${analyzing?"bg-gray-400":"bg-lime-500"} transition ease-in-out text-black py-2 rounded-lg font-semibold shadow-[0_0_12px_rgba(132,204,22,0.6)]`}
+            className={`w-full ${analyzing?"bg-gray-400":"bg-lime-500"} hover:bg-lime-600 transition ease-in-out text-black py-2 rounded-lg font-semibold shadow-[0_0_12px_rgba(132,204,22,0.6)]`}
           >
             {analyzing ? "Analyzing..." : "Analyze Fit Score"}
           </motion.button>
