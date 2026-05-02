@@ -16,7 +16,8 @@ import TargetedInterview from "./pages/TargetedInterview";
 import FitScore from "./components/FitScore";
 import SkillRoadmap from "./components/SkillRoadmap";
 import Leaderboard from "./components/Leaderboard";
-export const ServerURL = "https://vettorai-t9ex.onrender.com";
+// export const ServerURL = "https://vettorai-t9ex.onrender.com";
+export const ServerURL = import.meta.env.VITE_API_URL;
 
 export const getCurrentUser = async (dispatch) => {
   try {
