@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import SetUpIW from '../components/SetUpIW';
-import Interview from '../components/Interview';
-import ReportIW from '../components/ReportIW';
+import React, { useState, lazy, Suspense } from 'react'
+const SetUpIW = lazy(() => import('../components/SetUpIW'));
+const Interview = lazy(() => import('../components/Interview'));
+const ReportIW = lazy(() => import('../components/ReportIW'));
 
 function InterviewPage() {
   const [step,setStep] = useState(1);
@@ -9,12 +9,26 @@ function InterviewPage() {
 
   return (
     <div className='bg-black min-h-screen  overflow-hidden'>
-      {step === 1 && (<SetUpIW onStart={(data) => {
-        setInterviewData(data);
-        setStep(2);
-      }} />)}
-      {step === 2 && (<Interview interviewData={interviewData} onFinish={(report) => {setInterviewData(report); setStep(3)}} />)}
-      {step === 3 && (<ReportIW report={interviewData} />)}
+      {step === 1 && (
+        <Suspense fallback={<div />}>
+          <SetUpIW onStart={(data) => {
+            setInterviewData(data);
+            setStep(2);
+          }} />
+        </Suspense>
+      )}
+
+      {step === 2 && (
+        <Suspense fallback={<div />}>
+          <Interview interviewData={interviewData} onFinish={(report) => {setInterviewData(report); setStep(3)}} />
+        </Suspense>
+      )}
+
+      {step === 3 && (
+        <Suspense fallback={<div />}>
+          <ReportIW report={interviewData} />
+        </Suspense>
+      )}
     </div>
   )
 }

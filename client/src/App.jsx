@@ -1,21 +1,21 @@
 import { ToastContainer } from "react-toastify";
-import Home from "./pages/Home";
-import Auth from "./pages/Auth";
+import { useEffect, lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import { useEffect } from "react";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserData } from "./redux/userSlice";
-import InterviewPage from "./pages/InterviewPage";
-import InterviewHistory from "./pages/InterviewHistory";
-import Pricing from "./pages/Pricing";
-import InterviewReport from "./pages/InterviewReport"
-import TargetCompanies from "./pages/TargetCompanies";
-import TargetedInterview from "./pages/TargetedInterview";
-import FitScore from "./components/FitScore";
-import SkillRoadmap from "./components/SkillRoadmap";
-import Leaderboard from "./components/Leaderboard";
+import axios from "axios";
+const Home = lazy(() => import("./pages/Home"));
+const Auth = lazy(() => import("./pages/Auth"));
+const Navbar = lazy(() => import("./components/Navbar"));
+const InterviewPage = lazy(() => import("./pages/InterviewPage"));
+const InterviewHistory = lazy(() => import("./pages/InterviewHistory"));
+const Pricing = lazy(() => import("./pages/Pricing"));
+const InterviewReport = lazy(() => import("./pages/InterviewReport"));
+const TargetCompanies = lazy(() => import("./pages/TargetCompanies"));
+const TargetedInterview = lazy(() => import("./pages/TargetedInterview"));
+const FitScore = lazy(() => import("./components/FitScore"));
+const SkillRoadmap = lazy(() => import("./components/SkillRoadmap"));
+const Leaderboard = lazy(() => import("./components/Leaderboard"));
 // export const ServerURL = "https://vettorai-t9ex.onrender.com";
 export const ServerURL = import.meta.env.VITE_API_URL;
 
@@ -43,7 +43,9 @@ function App() {
     <div className="min-h-screen w-full">
       <Navbar  />
 
+        <Suspense fallback={<div>Loading...</div>}>
       <Routes>
+        
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={userData ? <Home /> : <Auth /> } />
         <Route
@@ -82,8 +84,9 @@ function App() {
           path="/leaderboard"
           element={ <Leaderboard />}
         />
+        
       </Routes>
-
+</Suspense>
       <ToastContainer />
     </div>
   );

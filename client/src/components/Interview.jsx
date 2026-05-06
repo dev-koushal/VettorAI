@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { easeInOut, motion, time } from "motion/react";
-import CameraPreview from "./CameraPreview";
+const CameraPreview = lazy(() => import("./CameraPreview"));
 import { FaMicrophone, FaMicrophoneSlash, FaVideo, FaVideoSlash } from "react-icons/fa";
 import { BsArrowLeft, BsArrowRight} from "react-icons/bs";
-import {Timer} from './Timer'
+const Timer = lazy(() => import('./Timer').then(mod => ({ default: mod.Timer })));
 import axios from "axios";
 import { ServerURL } from "../App";
 import { toast } from "react-toastify";
@@ -297,10 +297,13 @@ function Interview({ interviewData, onFinish }) {
           <div className="w-full h-[160px] bg-zinc-800 rounded-lg mb-4">
            
             <div className="w-full h-[160px] bg-zinc-800 rounded-lg mb-4 relative overflow-hidden">
+              <Suspense fallback={<div className="w-full h-full flex items-center justify-center text-zinc-400">Camera</div>}>
 
-  <CameraPreview isCameraOn={isCameraOn} />
+                <CameraPreview isCameraOn={isCameraOn} />
 
-  {/* Camera Toggle */}
+              </Suspense>
+
+              {/* Camera Toggle */}
   <button
     onClick={() => setIsCameraOn(prev => !prev)}
     className={`absolute bottom-2 right-2 rounded-full ${isCameraOn?"bg-lime-500":"bg-red-400"} duration-300 text-black text-xs px-3 py-1  font-semibold transition`}
@@ -317,8 +320,9 @@ function Interview({ interviewData, onFinish }) {
           </div>
 
           <div className="flex justify-center mb-4">
-            
-           <Timer timeLeft={timeLeft} totalTime={currentQuestion?.timeLimit || 60} />
+            <Suspense fallback={<div className="w-full max-w-md mx-auto">...</div>}>
+              <Timer timeLeft={timeLeft} totalTime={currentQuestion?.timeLimit || 60} />
+            </Suspense>
           </div>
 
           <div className="border-t border-lime-500/20 my-3" />

@@ -1,9 +1,10 @@
 import { easeInOut, motion } from "motion/react";
 import { FaArrowRight } from "react-icons/fa";
-import Product from "../components/Product";
-import Feature from "../components/Feature";
-import Prices from "../components/Prices";
-import Footer from "../components/Footer";
+import { lazy, Suspense } from "react";
+const Product = lazy(() => import("../components/Product"));
+const Feature = lazy(() => import("../components/Feature"));
+const Prices = lazy(() => import("../components/Prices"));
+const Footer = lazy(() => import("../components/Footer"));
 import { useNavigate } from "react-router-dom";
 import { FiBarChart } from "react-icons/fi";
 
@@ -122,10 +123,18 @@ function Home() {
       </section>
 
       {/* PRODUCT */}
-      <Product />
-      <Feature />
-      <Prices />
-      <Footer />
+      <Suspense fallback={<div /> }>
+        <Product />
+      </Suspense>
+      <Suspense fallback={<div /> }>
+        <Feature />
+      </Suspense>
+      <Suspense fallback={<div /> }>
+        <Prices />
+      </Suspense>
+      <Suspense fallback={<div /> }>
+        <Footer />
+      </Suspense>
     </div>
   );
 }

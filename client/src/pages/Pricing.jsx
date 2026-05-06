@@ -6,6 +6,27 @@ import axios from "axios";
 import { ServerURL } from "../App";
 import {useDispatch} from "react-redux";
 import { setUserData } from "../redux/userSlice";
+
+// Dynamically load Razorpay checkout script only when needed
+const loadScript = (src) => {
+  return new Promise((resolve, reject) => {
+    // if script already present
+    const existing = document.querySelector(`script[src="${src}"]`);
+    if (existing) {
+      if (window.Razorpay) return resolve(true);
+      existing.addEventListener("load", () => resolve(true));
+      existing.addEventListener("error", () => reject(false));
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = src;
+    script.async = true;
+    script.onload = () => resolve(true);
+    script.onerror = () => reject(false);
+    document.body.appendChild(script);
+  });
+};
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -100,13 +121,20 @@ function Pricing() {
             { withCredentials: true },
           );
           dispatch(setUserData(verifyPay.data.user))
-          window.alert("Payment done!!❤️❤️");
+          window.alert("We received your payment!");
           navigate("/");
         },
         theme :{
           color : " #003300"
         },
       };
+
+      // load Razorpay SDK on demand (prevents it from requesting chunks on unrelated pages)
+      const sdkLoaded = await loadScript("https://checkout.razorpay.com/v1/checkout.js").catch(() => false);
+      if (!sdkLoaded || !window.Razorpay) {
+        console.error("Razorpay SDK failed to load");
+        return;
+      }
 
       const rzp = new window.Razorpay(options);
       rzp.open();
