@@ -84,6 +84,7 @@ function App() {
           path="/leaderboard"
           element={ <Leaderboard />}
         />
+        <Route path="*" element={<Home />} />
         
       </Routes>
 </Suspense>

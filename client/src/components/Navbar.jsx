@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { getCurrentUser, ServerURL } from "../App";
 import { toast } from "react-toastify";
+import { FcDocument } from "react-icons/fc";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -154,7 +155,13 @@ export default function Navbar() {
               </p>
 
               <button
-                className="bg-white px-2 flex gap-2 items-center p-1 rounded-lg cursor-pointer font-semibold hover:translate-x-1"
+                className="bg-white w-full px-2 flex gap-2 items-center p-1 rounded-lg cursor-pointer font-semibold hover:bg-white/80 hover:translate-y-0.5"
+                onClick={() => navigate("/upload-resume")}
+              >
+                Upload Resume <FcDocument size={18} />
+              </button>
+              <button
+                className="bg-white w-full px-2 flex gap-2 items-center p-1 rounded-lg cursor-pointer font-semibold hover:bg-white/80 hover:translate-y-0.5"
                 onClick={handleLogout}
               >
                 Logout <FiLogOut size={18} />
@@ -223,12 +230,18 @@ export default function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               className={`absolute top-16 right-4 p-4 ${accentBg} text-black rounded-lg shadow-lg flex flex-col items-center gap-2 md:hidden`}
             >
-              <p className="text-lg tracking-widest border-b-2">
+              <p className="text-lg w-full tracking-widest border-b-2">
                 {userData?.name}
               </p>
 
               <button
-                className="bg-white px-2 flex gap-2 items-center p-1 rounded-lg cursor-pointer font-semibold hover:translate-x-1"
+                className="bg-white w-full px-2 flex gap-2 items-center p-1 rounded-lg cursor-pointer font-semibold hover:translate-x-1"
+                onClick={() => navigate("/upload-resume")}
+              >
+                Upload Resume <FcDocument size={18} />
+              </button>
+              <button
+                className="bg-white w-full px-2 flex gap-2 items-center p-1 rounded-lg cursor-pointer font-semibold hover:translate-x-1"
                 onClick={handleLogout}
               >
                 Logout <FiLogOut size={18} />
