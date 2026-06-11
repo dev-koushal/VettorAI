@@ -118,6 +118,25 @@ export default function Navbar() {
           >
             {isTargetPage ? "Home" : "Target Companies"}
           </motion.div>
+
+          {userData && (
+            <>
+              <motion.div
+                whileHover={{ y: -2 }}
+                className={`cursor-pointer ${accentHover} ${Text}`}
+                onClick={() => navigate("/offer-intelligence")}
+              >
+                Offer AI
+              </motion.div>
+              <motion.div
+                whileHover={{ y: -2 }}
+                className={`cursor-pointer ${accentHover} ${Text}`}
+                onClick={() => navigate("/intelligence")}
+              >
+                My Profile
+              </motion.div>
+            </>
+          )}
         </div>
 
         {/* right side */}
@@ -159,6 +178,18 @@ export default function Navbar() {
                 onClick={() => navigate("/upload-resume")}
               >
                 Upload Resume <FcDocument size={18} />
+              </button>
+              <button
+                className="bg-white w-full px-2 flex gap-2 items-center p-1 rounded-lg cursor-pointer font-semibold hover:bg-white/80 hover:translate-y-0.5"
+                onClick={() => { navigate("/offer-intelligence"); setProfilePopUp(false); }}
+              >
+                Offer Intelligence
+              </button>
+              <button
+                className="bg-white w-full px-2 flex gap-2 items-center p-1 rounded-lg cursor-pointer font-semibold hover:bg-white/80 hover:translate-y-0.5"
+                onClick={() => { navigate("/intelligence"); setProfilePopUp(false); }}
+              >
+                My AI Profile
               </button>
               <button
                 className="bg-white w-full px-2 flex gap-2 items-center p-1 rounded-lg cursor-pointer font-semibold hover:bg-white/80 hover:translate-y-0.5"

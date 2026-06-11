@@ -3,9 +3,9 @@ import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { ServerURL } from "../App";
 import { motion } from "framer-motion";
-
 import autoTable from "jspdf-autotable";
-import { FaDownload } from "react-icons/fa";
+import { FaDownload, FaTrophy, FaChartLine, FaArrowUp, FaArrowDown } from "react-icons/fa";
+import AnswerOptimizer from "../components/AnswerOptimizer";
 import {
   RadarChart,
   PolarGrid,
@@ -68,6 +68,7 @@ function InterviewReport() {
   const { interviewId } = useParams();
   const [report, setReport] = useState(null);
   const reportRef = useRef();
+  const [synthesis, setSynthesis] = useState(null);
 
   useEffect(() => {
     const fetchReport = async () => {
@@ -76,13 +77,23 @@ function InterviewReport() {
           ServerURL + `/api/interview/report/${interviewId}`,
           { withCredentials: true },
         );
-        // console.log(result.data)
         setReport(result.data);
+
+        // P0: Fetch autopilot synthesis in background
+        try {
+          const synthRes = await axios.post(
+            ServerURL + "/api/ai/autopilot/synthesis",
+            { interviewId },
+            { withCredentials: true }
+          );
+          setSynthesis(synthRes.data);
+        } catch {
+          // Non-critical — silent fail
+        }
       } catch (err) {
         console.log(err);
       }
     };
-
     fetchReport();
   }, [interviewId]);
 
@@ -217,6 +228,60 @@ const downloadPDF = async () => {
         ref={reportRef}
         className="max-w-6xl mx-auto relative z-10 py-12 md:py-16 px-4 sm:px-6 mt-10 md:mt-22 bg-gray-500/10 p-4 rounded-2xl border border-lime-500/20 "
       >
+        {/* P0: Session Synthesis Banner */}
+        {synthesis && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8 grid sm:grid-cols-3 gap-3"
+          >
+            <div className="border border-lime-500/20 bg-lime-500/8 rounded-2xl p-4 flex flex-col gap-1">
+              <div className="flex items-center gap-2">
+                <FaTrophy className="text-lime-400" size={12} />
+                <p className="text-xs text-lime-400 uppercase tracking-widest">Percentile Rank</p>
+              </div>
+              <p className="text-2xl font-bold text-white">
+                Top {100 - synthesis.percentileRank}%
+              </p>
+              <p className="text-xs text-zinc-500">vs all platform users for this role</p>
+            </div>
+            <div className="border border-zinc-800 bg-black/30 rounded-2xl p-4 flex flex-col gap-1">
+              <div className="flex items-center gap-2">
+                <FaChartLine className="text-zinc-400" size={12} />
+                <p className="text-xs text-zinc-400 uppercase tracking-widest">Session Trend</p>
+              </div>
+              <div className="flex items-center gap-2">
+                {synthesis.trend === "improving" ? (
+                  <FaArrowUp className="text-lime-400" size={14} />
+                ) : synthesis.trend === "declining" ? (
+                  <FaArrowDown className="text-red-400" size={14} />
+                ) : null}
+                <p className="text-lg font-bold text-white capitalize">{synthesis.trend}</p>
+              </div>
+              <p className="text-xs text-zinc-500">
+                {synthesis.trendDelta > 0 ? "+" : ""}{synthesis.trendDelta} pts from Q1 to last
+              </p>
+            </div>
+            <div className="border border-zinc-800 bg-black/30 rounded-2xl p-4 flex flex-col gap-1">
+              <p className="text-xs text-zinc-400 uppercase tracking-widest mb-1">Focus Areas</p>
+              {synthesis.practiceAreas?.slice(0, 2).map((area, i) => (
+                <p key={i} className="text-xs text-zinc-300">→ {area}</p>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
+        {synthesis?.executiveSummary && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mb-8 border border-zinc-800 bg-white/3 rounded-2xl p-4"
+          >
+            <p className="text-xs text-zinc-500 uppercase tracking-widest mb-2">AI Coach Summary</p>
+            <p className="text-sm text-zinc-300 italic leading-relaxed">"{synthesis.executiveSummary}"</p>
+          </motion.div>
+        )}
+
         {/* header */}
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8 md:mb-12 ">
           <h1 className="text-2xl md:text-3xl font-bold text-white">
@@ -314,6 +379,22 @@ const downloadPDF = async () => {
                   {q.feedback}
                 </p>
               )}
+
+              {/* P2: Answer Optimizer */}
+              <AnswerOptimizer
+                question={q.question}
+                answer={q.answer}
+                scores={{
+                  confidence: q.confidence,
+                  communication: q.communication,
+                  correctness: q.correctness,
+                  structure: q.structure,
+                  depth: q.depth,
+                  finalScore: q.score,
+                }}
+                interviewId={interviewId}
+                questionIndex={i}
+              />
             </motion.div>
           ))}
         </div>

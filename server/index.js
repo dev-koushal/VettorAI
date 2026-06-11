@@ -8,6 +8,7 @@ import userRouter from "./routes/user.route.js";
 import interviewRouter from "./routes/interview.route.js";
 import paymentRouter from "./routes/razorpay.route.js";
 import featurerouter from "./routes/feature.route.js";
+import aiRouter from "./routes/ai.route.js";
 
 dotenv.config();
 
@@ -41,6 +42,7 @@ app.use("/api/payment", paymentRouter);
 
 
 app.use("/api/feature",featurerouter);
+app.use("/api/ai", aiRouter);
 
 
 

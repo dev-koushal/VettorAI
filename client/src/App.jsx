@@ -15,7 +15,10 @@ const TargetCompanies = lazy(() => import("./pages/TargetCompanies"));
 const TargetedInterview = lazy(() => import("./pages/TargetedInterview"));
 const FitScore = lazy(() => import("./components/FitScore"));
 const SkillRoadmap = lazy(() => import("./components/SkillRoadmap"));
-const Leaderboard = lazy(() => import("./components/Leaderboard"));
+const CareerPlanner = lazy(() => import("./components/Leaderboard"));
+const UploadResume = lazy(() => import("./pages/UploadResume"));
+const OfferIntelligence = lazy(() => import("./pages/OfferIntelligence"));
+const IntelligenceDashboard = lazy(() => import("./pages/IntelligenceDashboard"));
 // export const ServerURL = "https://vettorai-t9ex.onrender.com";
 export const ServerURL = import.meta.env.VITE_API_URL;
 
@@ -77,12 +80,24 @@ function App() {
          element={userData ? <FitScore /> : <Auth/>}
         />
         <Route
-          path="/skill-Roadmap"
-          element={ <SkillRoadmap />}
+          path="/skill-roadmap"
+          element={<SkillRoadmap />}
         />
         <Route
-          path="/leaderboard"
-          element={ <Leaderboard />}
+          path="/career-planner"
+          element={<CareerPlanner />}
+        />
+        <Route
+          path="/upload-resume"
+          element={userData ? <UploadResume /> : <Auth />}
+        />
+        <Route
+          path="/offer-intelligence"
+          element={userData ? <OfferIntelligence /> : <Auth />}
+        />
+        <Route
+          path="/intelligence"
+          element={userData ? <IntelligenceDashboard /> : <Auth />}
         />
         <Route path="*" element={<Home />} />
         

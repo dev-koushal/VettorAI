@@ -477,3 +477,137 @@ ${jobDescription}
     });
   }
 };
+
+export const getSkillRoadmap = async (req, res) => {
+  try {
+    const { resumeText, jobDescription } = req.body;
+
+    if (!resumeText || !jobDescription) {
+      return res.status(400).json({
+        message: "resumeText and jobDescription are required",
+      });
+    }
+
+    // Step 1: Extract missing skills and required topics from JD
+    const gapAnalysisMessages = [
+      {
+        role: "system",
+        content: `You are a technical recruiter analyzing skill gaps.
+
+Extract the SPECIFIC missing skills and technical topics the candidate needs to learn.
+
+Return STRICT JSON only:
+{
+  "missingSkills": ["skill1", "skill2", ...],
+  "missingTechnologies": ["tech1", "tech2", ...],
+  "requiredConcepts": ["concept1", "concept2", ...]
+}`
+      },
+      {
+        role: "user",
+        content: `
+CANDIDATE RESUME:
+${resumeText}
+
+TARGET JOB DESCRIPTION:
+${jobDescription}
+
+Extract the exact skills, technologies, and concepts the candidate needs to learn.`
+      }
+    ];
+
+    const gapResponse = await askAi(gapAnalysisMessages);
+    let gapAnalysis = { missingSkills: [], missingTechnologies: [], requiredConcepts: [] };
+    
+    try {
+      const match = gapResponse.match(/\{[\s\S]*\}/);
+      gapAnalysis = match ? JSON.parse(match[0]) : gapAnalysis;
+    } catch {
+      // Use defaults if parsing fails
+    }
+
+    // Combine all missing topics
+    const allMissingTopics = [
+      ...(gapAnalysis.missingSkills || []),
+      ...(gapAnalysis.missingTechnologies || []),
+      ...(gapAnalysis.requiredConcepts || [])
+    ].filter(Boolean);
+
+    // Step 2: Generate structured learning roadmap for each missing topic
+    const roadmapMessages = [
+      {
+        role: "system",
+        content: `You are a career coach creating a learning roadmap for skill development.
+
+For each missing skill/technology/concept, create a practical learning topic the candidate should master.
+
+Return STRICT JSON with 5-10 learning topics (prioritized by importance):
+{
+  "roadmap": [
+    {
+      "topic": "specific skill/technology to learn",
+      "title": "learning goal (5-8 words)",
+      "desc": "how to practice or what to build (15-25 words)",
+      "type": "info|skill|action",
+      "priority": 1-10 (10 being highest priority)
+    }
+  ]
+}
+
+Guidelines:
+- "info": Foundational concepts (e.g., "Understanding REST API Architecture")
+- "skill": Learn and practice a technology (e.g., "Learn TypeScript type system deeply")
+- "action": Build something concrete (e.g., "Build API with proper error handling")
+- Type "action" should directly show what to build to prove competency
+- Prioritize topics that appear most in the JD
+- Max 10 topics`
+      },
+      {
+        role: "user",
+        content: `Missing topics to learn: ${allMissingTopics.join(", ")}
+
+TARGET JOB DESCRIPTION (for context):
+${jobDescription}
+
+Create 5-10 learning roadmap topics to master these gaps, ordered by priority.`
+      }
+    ];
+
+    const roadmapResponse = await askAi(roadmapMessages);
+    let parsed = { roadmap: [] };
+
+    try {
+      const match = roadmapResponse.match(/\{[\s\S]*\}/);
+      parsed = match ? JSON.parse(match[0]) : { roadmap: [] };
+    } catch {
+      // Use default if parsing fails
+    }
+
+    // Ensure we have an array of roadmap items
+    const roadmap = Array.isArray(parsed.roadmap) ? parsed.roadmap : [];
+
+    // Validate, sort by priority, and return
+    const validRoadmap = roadmap
+      .filter((item) => item.title && item.desc && item.type && item.topic)
+      .sort((a, b) => (b.priority || 0) - (a.priority || 0))
+      .map(({ topic, title, desc, type, priority }) => ({
+        title,
+        desc,
+        type,
+        topic,
+        priority: priority || 5
+      }))
+      .slice(0, 10); // Max 10 recommendations
+
+    return res.json({
+      recommendations: validRoadmap,
+      missingTopics: allMissingTopics.slice(0, 10),
+    });
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Error generating skill roadmap",
+    });
+  }
+};

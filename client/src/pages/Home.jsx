@@ -61,7 +61,7 @@ function Home() {
             </motion.button>
 
             <motion.button
-              onClick={() => navigate("/history")}
+              onClick={() => navigate("/career-planner")}
               whileTap={{ scale: 0.96 }}
               viewport={{ once: true }}
               className="px-12 py-3 border border-white/15 text-gray-300 rounded-lg hover:bg-white/10  hover:border hover:border-lime-500 transition duration-300 ease-in-out  font-semibold text-sm cursor-pointer flex justify-center items-center gap-2"
@@ -73,35 +73,61 @@ function Home() {
           {/* feature cards */}
           
           <div className="grid grid-cols-1 relative md:grid-cols-3 gap-6 mt-16 w-full">
-            <div className="text-white/40 absolute -top-12 left-5 text-2xl font-bold tracking-wider">Try Features :</div>
+            <div className="text-white/40 absolute -top-12 left-5 text-2xl font-bold tracking-wider">AI Features :</div>
             {[
               {
                 title: "Fit Score",
                 desc: "Match your resume with job descriptions and get an AI score.",
                 path: "/fit-score",
+                badge: null,
               },
               {
-                title: "Role Match",
-                desc: "Discover best-fit roles based on your skills and experience.",
-                path: "/skill-Roadmap",
+                title: "Skill Roadmap",
+                desc: "Bridge resume gaps to job descriptions with a practical improvement plan.",
+                path: "/skill-roadmap",
+                badge: null,
               },
               {
-                title: "Leader Board",
-                desc: "Track and compare your interview performance with top candidates.",
-                path: "/leaderboard",
+                title: "Offer Intelligence",
+                desc: "Know your exact hiring odds before you apply — AI computes your offer probability.",
+                path: "/offer-intelligence",
+                badge: "NEW",
+              },
+              {
+                title: "Answer Optimizer",
+                desc: "AI rewrites your lowest-scoring answers to 9+/10 with a diff view and framework breakdown.",
+                path: "/history",
+                badge: "NEW",
+              },
+              {
+                title: "My Intelligence",
+                desc: "Your living mastery map, readiness score, and daily practice prescription.",
+                path: "/intelligence",
+                badge: "NEW",
+              },
+              {
+                title: "Career Planner",
+                desc: "Get a job-ready roadmap that feels product-level and real-world ready.",
+                path: "/career-planner",
+                badge: null,
               },
             ].map((card, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.3 }}
+                transition={{ delay: i * 0.1 }}
                 whileHover={{ y: -2, scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
                 viewport={{ once: true }}
                 onClick={() => navigate(card.path)}
-                className="cursor-pointer backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl overflow-hidden group"
+                className="cursor-pointer backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl overflow-hidden group relative"
               >
+                {card.badge && (
+                  <span className="absolute top-3 right-3 text-xs bg-lime-500 text-black font-bold px-2 py-0.5 rounded-full z-10">
+                    {card.badge}
+                  </span>
+                )}
                 {/* Browser Top */}
                 <div className="flex items-center gap-2 px-4 py-2 bg-white/5 border-b border-white/10">
                   <span className="w-3 h-3 bg-red-500 rounded-full"></span>
