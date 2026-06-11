@@ -61,7 +61,7 @@ function Home() {
             </motion.button>
 
             <motion.button
-              onClick={() => navigate("/career-planner")}
+              onClick={() => navigate("/history")}
               whileTap={{ scale: 0.96 }}
               viewport={{ once: true }}
               className="px-12 py-3 border border-white/15 text-gray-300 rounded-lg hover:bg-white/10  hover:border hover:border-lime-500 transition duration-300 ease-in-out  font-semibold text-sm cursor-pointer flex justify-center items-center gap-2"

@@ -93,14 +93,6 @@ export default function Navbar() {
             <a href="#products">Product </a>
           </motion.div>
 
-          <motion.div
-            whileHover={{ y: -2 }}
-            className={`cursor-pointer ${accentHover} ${Text}`}
-            onClick={()=>navigate("/")}
-          >
-            <a href="#features"> Features </a>
-          </motion.div>
-
           <motion.div className={`cursor-pointer ${accentHover} ${Text}`} whileHover={{ y: -2 }} onClick={()=>navigate("/")}>
             <a href="#prices">Pricing </a>
           </motion.div>
@@ -120,22 +112,13 @@ export default function Navbar() {
           </motion.div>
 
           {userData && (
-            <>
-              <motion.div
-                whileHover={{ y: -2 }}
-                className={`cursor-pointer ${accentHover} ${Text}`}
-                onClick={() => navigate("/offer-intelligence")}
-              >
-                Offer AI
-              </motion.div>
-              <motion.div
-                whileHover={{ y: -2 }}
-                className={`cursor-pointer ${accentHover} ${Text}`}
-                onClick={() => navigate("/intelligence")}
-              >
-                My Profile
-              </motion.div>
-            </>
+            <motion.div
+              whileHover={{ y: -2 }}
+              className={`cursor-pointer ${accentHover} ${Text}`}
+              onClick={() => navigate("/intelligence")}
+            >
+              My Profile
+            </motion.div>
           )}
         </div>
 

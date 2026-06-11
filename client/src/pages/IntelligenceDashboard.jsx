@@ -7,12 +7,11 @@ import { toast } from "react-toastify";
 import {
   FaBolt,
   FaArrowRight,
-  FaTrendingUp,
-  FaTrendingDown,
-  FaEquals,
+  FaArrowUp,
+  FaArrowDown,
+  FaMinus,
   FaBrain,
   FaExclamationTriangle,
-  FaCalendar,
 } from "react-icons/fa";
 
 // ── Readiness Ring ────────────────────────────────────────────────────────────
@@ -66,7 +65,7 @@ function MasteryBar({ topic, avgScore, masteryLevel, masteryColor, velocity, day
   const c = colorMap[masteryColor] || colorMap.red;
   const pct = (avgScore / 10) * 100;
   const VelocityIcon =
-    velocity === "improving" ? FaTrendingUp : velocity === "declining" ? FaTrendingDown : FaEquals;
+    velocity === "improving" ? FaArrowUp : velocity === "declining" ? FaArrowDown : FaMinus;
 
   return (
     <motion.div
